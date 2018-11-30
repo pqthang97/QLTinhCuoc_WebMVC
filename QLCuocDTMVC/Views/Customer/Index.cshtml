@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tra cứu thông tin khách hàng</h2>
+
+<div class="form-group">
+    <input type="text" class="form-control" name="MaKH" placeholder="Nhập mã khách hàng để tra cứu" />
+</div>
+
+<input type="button" id="find" class="btn btn-success" value="Tra cứu" />
+
+<script>
+    $(document).ready(function () {
+        $('#find').click(function() {
+            window.location = '/Customer/Details/' + $('[name="MaKH"]').val();
+        });
+    });
+</script>

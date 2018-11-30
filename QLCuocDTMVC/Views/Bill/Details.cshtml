@@ -1,0 +1,91 @@
+﻿@using QLCuocDTMVC.Models
+@{
+                /**/
+
+                ViewBag.Title = "Details";
+                var Bill = (HoaDonTinhCuoc)ViewBag.Bill;
+                var Useds = (List<ChiTietSuDung>)ViewBag.Useds;
+}
+
+<h2>Chi tiết hóa đơn tính cước @Bill.MaHDTC</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label>ID Sim:</label>
+    </div>
+    <div class="col-md-8">
+        @Bill.IDSIM
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Ngày lập HĐ:</label>
+    </div>
+    <div class="col-md-8">
+        @Bill.NgayLapHD
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Phí thuê bao:</label>
+    </div>
+    <div class="col-md-8">
+        @Bill.PhiThueBao
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Tổng phí:</label>
+    </div>
+    <div class="col-md-8">
+        @Bill.TongTien
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Tình trạng:</label>
+    </div>
+    <div class="col-md-8">
+        @if (Bill.ThanhToan == true)
+        {
+            <strong>Đã thanh toán</strong>
+        }
+        else
+        {
+            <strong>Chưa thanh toán</strong>
+        }
+    </div>
+</div>
+
+@if (Useds.Count > 0)
+{
+    <h2>Chi tiết sử dụng của sim @Useds[0].IDSIM</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Thời gian bắt đầu</th>
+                <th>Thời gian kết thúc</th>
+                <th>Số phút</th>
+                <th>Phí</th>
+            </tr>
+            @{
+                var i = 1;
+            }
+        </thead>
+        <tbody>
+            @foreach (var Used in Useds)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@Used.TGBD</td>
+                    <td>@Used.TGKT</td>
+                    <td>@Used.SoPhutSD</td>
+                    <td>@Used.PhiCuocGoi</td>
+
+                </tr>
+                i += 1;
+            }
+        </tbody>
+    </table>
+}

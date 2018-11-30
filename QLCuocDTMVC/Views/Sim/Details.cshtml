@@ -1,0 +1,89 @@
+﻿@using QLCuocDTMVC.Models
+@{
+    ViewBag.Title = "Details";
+    var Sim = (ThongTinSIM)ViewBag.Sim;
+    var Bills = (List<HoaDonTinhCuoc>)ViewBag.Bills;
+}
+
+<h2>Thông tin Sim @Sim.IDSIM</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label>ID Sim:</label>
+    </div>
+    <div class="col-md-8">
+        @Sim.IDSIM
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Ngày đăng ký:</label>
+    </div>
+    <div class="col-md-8">
+        @Sim.NgayDangKy
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Ngày hết hạn:</label>
+    </div>
+    <div class="col-md-8">
+        @Sim.NgayHetHan
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <label>Khách hàng sở hữu:</label>
+    </div>
+    <div class="col-md-8">
+        @if (Sim.KhachHang != null)
+        {
+            @String.Format("{0} - {1}", @Sim.KhachHang.TenKH, @Sim.KhachHang.MaKH)
+        }
+    </div>
+</div>
+
+<h2>Hóa đơn tính cước</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Mã hóa đơn</th>
+            <th>Ngày lập</th>
+            <th>Phí thuê bao</th>
+            <th>Tổng tiền</th>
+            <th>Thanh toán</th>
+            <th></th>
+        </tr>
+        @{
+            var i = 1;
+        }
+    </thead>
+    <tbody>
+        @foreach (var Bill in Bills)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@Bill.MaHDTC</td>
+                <td>@Bill.NgayLapHD</td>
+                <td>@Bill.PhiThueBao</td>
+                <td>@Bill.TongTien</td>
+                <td>
+                    @if(Bill.ThanhToan == true)
+                    {
+                        <strong>Đã thanh toán</strong>
+                    }
+                    else
+                    {
+                        <span>Chưa thanh toán</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Xem chi tiết", "Details", "Bill", new { id = Bill.MaHDTC }, null)
+                </td>
+            </tr>
+            i += 1;
+        }
+    </tbody>
+</table>

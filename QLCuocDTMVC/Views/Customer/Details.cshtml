@@ -1,0 +1,80 @@
+﻿
+@using QLCuocDTMVC.Models
+@{
+    ViewBag.Title = "Details";
+    var Customer = (KhachHang)ViewBag.Customer;
+    var Sims = (List < ThongTinSIM >)ViewBag.Sims;
+}
+
+<h2>Thông tin khách hàng</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label>Mã Khách Hàng:</label>
+    </div>
+    <div class="col-md-8">
+        @Customer.MaKH
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Tên Khách Hàng:</label>
+    </div>
+    <div class="col-md-8">
+        @Customer.TenKH
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>CMND:</label>
+    </div>
+    <div class="col-md-8">
+        @Customer.CMND
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Email:</label>
+    </div>
+    <div class="col-md-8">
+        @Customer.Email
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <label>Địa chỉ:</label>
+    </div>
+    <div class="col-md-8">
+        @Customer.DiaChi
+    </div>
+</div>
+    <h2>Sim đã đăng ký</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Sim</th>
+            <th>Ngày đăng ký</th>
+            <th>Ngày hết hạn</th>
+            <th></th>
+        </tr>
+        @{ 
+            var i = 1;
+        }
+    </thead>
+    <tbody>
+        @foreach (var Sim in Sims)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@Sim.IDSIM</td>
+                <td>@Sim.NgayDangKy</td>
+                <td>@Sim.NgayHetHan</td>
+                <td>
+                    @Html.ActionLink("Xem chi tiết", "Details", "Sim", new { id = Sim.IDSIM }, null)
+                </td>
+            </tr>
+            i += 1;
+        }
+    </tbody>
+</table>
